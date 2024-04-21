@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=69.5.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "DFL"
+version = "0.0.0"
+authors = [
+    {name= "AtoKashinoki", email= "atokashinoki@gmail.com"}
+]
+description = "This is a module that introduces list type using dictionary format."
+readme = "README.md"
+license = {file="LICENSE"}
+requires-python = ">=3.12"
+dependencies = [
+]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows :: Windows 11",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/AtoKashinoki/pygameapp"
+"Bug Tracker" = "https://github.com/AtoKashinoki/pygameapp/issues"
