@@ -20,8 +20,9 @@ This module provides the following features.
 
 ### Developed
 - [x] \_\_init__.py
-- [ ] types.py
+- [x] DFL.py
   - [ ] DFL class
+- [x] types.py
 - [ ] encoder.py
   - [ ] encode function
 - [ ] decoder.py

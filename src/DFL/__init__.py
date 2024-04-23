@@ -4,7 +4,6 @@
 By using a dictionary type,
 long, complex, and difficult to read List type data
 is made one-dimensional and simplified.
-
 """
 
 # import
@@ -13,10 +12,20 @@ import sys
 
 __self_name__: str = "DFL"
 
-
-if __name__ == __self_name__:
+if not __name__ == __self_name__:
     print("Execution failed")
     sys.exit()
 
 
-print(f"Initialize {__self_name__}")
+try:
+    from DFL.dfl import create_dfl
+except ImportError as message:
+    create_dfl = ImportError(message)
+
+try:
+    from DFL.dfl import DFL
+except ImportError as message:
+    DFL = ImportError(message)
+
+
+print(f"**Initialize {__self_name__}**")
