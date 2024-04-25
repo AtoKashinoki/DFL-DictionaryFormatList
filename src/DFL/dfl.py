@@ -4,12 +4,10 @@
 This file contains DFL class.
 """
 
-
 # import descriptor
 from Descriptors import (
     DataType,
 )
-
 
 # import types
 
@@ -26,10 +24,10 @@ def create_tag(tag_format, dimension, index) -> str:
     :return: tag.
     """
     tag: str = tag_format.replace(
-        "dimension", f"{dimension}"
+        "{dimension}", f"{dimension}"
     )
     tag = tag.replace(
-        "index", f"{index}"
+        "{index}", f"{index}"
     )
     return tag
 
@@ -57,7 +55,7 @@ def create_dfl_recall(
     # initialize tag_log
     if tag_log is None:
         tag_log = [
-            create_tag(tag_format, dimension,0)
+            create_tag(tag_format, dimension, 0)
         ]
 
     # create dfl
@@ -70,7 +68,7 @@ def create_dfl_recall(
         if type(data) is list:
             # create tag
             tag: str = create_tag(
-                tag_format, dimension+1, index
+                tag_format, dimension + 1, index
             )
 
             for i in range(dimension):
@@ -109,7 +107,7 @@ def create_dfl(
         tag_format: str = "#{dimension}#{index}#",
 ) -> dict[str, any]:
     """
-        Create DFL format data from list.
+        Create DFL format dictionary data from list.
     :param data: List data to manage.
     :param tag_format: DFL tag format.
     :return: DFL format list.
@@ -122,8 +120,69 @@ def create_dfl(
 """ Create List from DFL format data """
 
 
-def read_dlf(dlf: dict):
-    pass
+def replace_all(value: str, __olds: tuple[str, ...], __new: str) -> str:
+    """
+        Execute replace all.
+    :param value: string data to change.
+    :param __olds: olds strings to change.
+    :param __new: new string.
+    :return: string
+    """
+    for old in __olds:
+        value = value.replace(f"{old}", f"{__new}")
+    return value
+
+
+def remove_number(value: str) -> str:
+    """
+        Create string object not in numbers.
+    :param value: string data to remove numbers.
+    :return: string object.
+    """
+    return replace_all(value, tuple(range(10)), "")
+
+
+def read_dlf_recall(dlf: dict, self_tag: str, tag_key: str) -> list:
+    """
+        Create list from DLF format dictionary recall function.
+    :param dlf: DLF data to change.
+    :param self_tag: [recall]self tag.
+    :param tag_key: validate tag key.
+    :return: list format data.
+    """
+    return_list: list = []
+
+    for value in dlf[self_tag]:
+
+        if (
+                type(value) is str and
+                remove_number(value)[-len(tag_key):] == tag_key
+        ):
+            value = read_dlf_recall(dlf, value, tag_key)
+
+        return_list.append(value)
+
+    return return_list
+
+
+def read_dlf(dlf: dict) -> list:
+    """
+        Create list  from DLF format dictionary.
+    :param dlf: DLF data to change.
+    :return: list format data.
+    """
+    tag_format = dlf["tag_format"]
+    self_tag = replace_all(
+        tag_format,
+        ("{dimension}", "{index}"), "0"
+    )
+    tag_key = replace_all(
+        tag_format,
+        ("{dimension}", "{index}"), ""
+    )
+    return read_dlf_recall(
+        dlf, self_tag, tag_key
+    )
 
 
 """ DFL-DictionaryFormatList """
@@ -145,7 +204,7 @@ class DFL:
     @staticmethod
     def create_dfl(
             data: list,
-            tag_format: str = "#dimension#index#",
+            tag_format: str = "#{dimension}#{index}#",
     ) -> dict[str, any]:
         """
             Create DFL format data from list.
@@ -158,7 +217,7 @@ class DFL:
     def __init__(
             self,
             data: list = (),
-            tag_format: str = "#dimension#index#",
+            tag_format: str = "#{dimension}#{index}#",
     ):
         """
             Initialize values and settings.
@@ -166,8 +225,22 @@ class DFL:
         :param tag_format: DFL tag format.
         """
         self.__data = self.create_dfl(data, tag_format)
-        self.__tag = tag_format
         return
 
     def __repr__(self):
         return f"{self.__data}"
+
+    @property
+    def data(self):
+        """ Return DFL format dictionary data """
+        return self.__data
+
+    @property
+    def tag(self):
+        """ Return DFL data tag """
+        return self.__data["tag_format"]
+
+    @property
+    def get_list(self):
+        """ Create and Return list format data from self DFL"""
+        return read_dlf(self.__data)

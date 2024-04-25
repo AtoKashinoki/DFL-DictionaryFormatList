@@ -1,8 +1,9 @@
 import DFL
+from DFL.dfl import (create_dfl, read_dlf)
 from random import randrange
 
 
-def create_random_list_recall(d_max = 10, d=0) -> list:
+def create_random_list_recall(d_max=10, d=0) -> list:
     list_ = []
     for _ in range(randrange(9)):
         num = randrange(14)
@@ -14,6 +15,7 @@ def create_random_list_recall(d_max = 10, d=0) -> list:
 
 if __name__ == '__main__':
     data = create_random_list_recall()
+    print(data)
     dfl = DFL.DFL(data)
     print(dfl)
-
+    print(dfl.get_list)
