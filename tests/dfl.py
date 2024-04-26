@@ -1,5 +1,5 @@
 import DFL
-from DFL.dfl import (create_dfl, read_dfl)
+from DFL.dfl import (encode_dfl, decode_dfl)
 from random import randrange
 
 
@@ -38,4 +38,4 @@ if __name__ == '__main__':
     dfl[0] = "ts"
     dfl.data["#0#0#test"] = "bug"
     print(dfl, dfl.data)
-    print(read_dfl(dfl, create_tag_function=create_tag))
+    print(decode_dfl(dfl, create_tag_function=create_tag))

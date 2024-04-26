@@ -12,8 +12,6 @@ from Descriptors import (
     DataType,
 )
 
-# import types
-
 
 """ Create tag data """
 
@@ -69,7 +67,7 @@ class DFL:
         :param create_tag_function: create tag function.
         :return: DFL format list.
         """
-        return create_dfl(
+        return encode_dfl(
             data,
             tag_format,
             create_tag_function=create_tag_function
@@ -102,6 +100,12 @@ class DFL:
         """ Return DFL format dictionary data """
         return copy.copy(self.__data)
 
+    @data.setter
+    def data(self, dfl_dict: dict) -> None:
+        """ Set DFL format dictionary data """
+        self.__data = dfl_dict
+        return
+
     @property
     def tag(self) -> str:
         """ Return DFL data tag """
@@ -116,7 +120,7 @@ class DFL:
 
     def get_list(self) -> list:
         """ Create and Return list format data from self DFL"""
-        return read_dfl(self.__data, self.__create_tag)
+        return decode_dfl(self.__data, self.__create_tag)
 
     @property
     def list(self) -> list:
@@ -165,6 +169,14 @@ class DFL:
         del self.__data[key]
         return
 
+    def __eq__(self, other) -> bool:
+        """ Validate self and other """
+        if type(other) is DFL:
+            other = other.data
+            ...
+
+        return self.data == other
+
 
 class DFLValues(list):
     """
@@ -197,10 +209,10 @@ class DFLValues(list):
         return
 
 
-""" Create DFL format data from list """
+""" Encode DFL format data """
 
 
-def create_dfl_recall(
+def encode_dfl_recall(
         list_: list,
         tag_format: str,
         dfl: dict = None,
@@ -209,7 +221,7 @@ def create_dfl_recall(
         create_tag_function=create_tag,
 ) -> dict[str, any]:
     """
-        Create DFL format from list recall function.
+        Encode DFL format from list recall function.
     :param list_: List data to change.
     :param tag_format: DFL tag to use.
     :param dfl: [Recall] Output data.
@@ -230,7 +242,7 @@ def create_dfl_recall(
         ]
         ...
 
-    # create dfl
+    # encode dfl
     dfl_line: list = []
     recall_args_que: list[tuple] = []
 
@@ -264,7 +276,7 @@ def create_dfl_recall(
 
     # recall process
     for data, tag in recall_args_que:
-        dfl = create_dfl_recall(
+        dfl = encode_dfl_recall(
             data,
             tag_format,
             dfl,
@@ -277,24 +289,24 @@ def create_dfl_recall(
     return dfl
 
 
-def create_dfl(
+def encode_dfl(
         data: list,
         tag_format: str = "#{dimension}#{index}#",
         create_tag_function=create_tag,
 ) -> dict[str, any]:
     """
-        Create DFL format dictionary data from list.
+        Encode DFL format dictionary data from list.
     :param data: List data to manage.
     :param tag_format: DFL tag format.
     :param create_tag_function: create tag function.
     :return: DFL format list.
     """
-    return create_dfl_recall(
+    return encode_dfl_recall(
         data, tag_format, create_tag_function=create_tag_function,
     )
 
 
-""" Create List from DFL format data """
+""" Decode DFL format data """
 
 
 def replace_all(value: str, __olds: tuple[str, ...], __new: str) -> str:
@@ -343,9 +355,9 @@ def validate_tag(
     )
 
 
-def read_dfl_recall(dfl: dict, self_tag: str, tag_key: str) -> list:
+def decode_dfl_recall(dfl: dict, self_tag: str, tag_key: str) -> list:
     """
-        Create list from DFL format dictionary recall function.
+        Decode list from DFL format dictionary recall function.
     :param dfl: DFL data to change.
     :param self_tag: [recall]self tag.
     :param tag_key: validate tag key.
@@ -356,7 +368,7 @@ def read_dfl_recall(dfl: dict, self_tag: str, tag_key: str) -> list:
     for value in dfl[self_tag]:
 
         if validate_tag(value, None, tag_key):
-            value = read_dfl_recall(dfl, value, tag_key)
+            value = decode_dfl_recall(dfl, value, tag_key)
             ...
 
         return_list.append(value)
@@ -366,7 +378,7 @@ def read_dfl_recall(dfl: dict, self_tag: str, tag_key: str) -> list:
     return return_list
 
 
-def read_dfl(
+def decode_dfl(
         dfl: dict | DFL,
         create_tag_function=create_tag
 ) -> list:
@@ -387,6 +399,6 @@ def read_dfl(
     tag_key = create_tag_function(
         tag_format, "", ""
     )
-    return read_dfl_recall(
+    return decode_dfl_recall(
         dfl, self_tag, tag_key
     )

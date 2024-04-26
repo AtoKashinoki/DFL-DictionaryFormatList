@@ -35,18 +35,33 @@ except ImportError as message:
 
 
 try:
-    from DFL.dfl import create_dfl
+    from DFL.dfl import encode_dfl
     ...
 except ImportError as message:
-    create_dfl = ImportError(message)
+    encode_dfl = ImportError(message)
     ...
 
 
 try:
-    from DFL.dfl import read_dfl
+    from DFL.dfl import decode_dfl
     ...
 except ImportError as message:
-    read_dfl = ImportError(message)
+    decode_dfl = ImportError(message)
+    ...
+
+
+try:
+    from DFL.file import write_dfls_in_file
+    ...
+except ImportError as message:
+    write_dfls_in_file = ImportError(message)
+    ...
+
+try:
+    from DFL.file import read_dfls_in_file
+    ...
+except ImportError as message:
+    read_dfls_in_file = ImportError(message)
     ...
 
 
