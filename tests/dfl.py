@@ -36,6 +36,6 @@ if __name__ == '__main__':
     print(data)
     dfl = DFL.DFL(data, create_tag_function=create_tag)
     dfl[0] = "ts"
-    dfl.data["#0#0#"] = "bug"
+    dfl.data["#0#0#test"] = "bug"
     print(dfl, dfl.data)
-    print(read_dfl(dfl))
+    print(read_dfl(dfl, create_tag_function=create_tag))

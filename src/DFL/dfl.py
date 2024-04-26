@@ -133,6 +133,7 @@ class DFL:
         value = self.__data[tag][index]
         if validate_tag(value, self.tag):
             value = DFLValues(value, self)
+            ...
         return value
 
     def __setitem__(self, index: int, value) -> None:
@@ -145,6 +146,7 @@ class DFL:
         pre_value = self.__data[tag][index]
         if validate_tag(pre_value, self.tag):
             self.del_values(pre_value)
+            ...
         self.__data[tag][index] = value
         return
 
@@ -157,6 +159,7 @@ class DFL:
         for value in copy.deepcopy(self.__data[key]):
             if validate_tag(value, self.tag):
                 self.del_values(value)
+                ...
             continue
 
         del self.__data[key]
@@ -182,12 +185,14 @@ class DFLValues(list):
         value = list.__getitem__(self, index)
         if validate_tag(value, self.__dfl.tag):
             value = DFLValues(value, self.__dfl)
+            ...
         return value
 
     def __setitem__(self, index, value):
         pre_value = list.__getitem__(self, index)
         if validate_tag(pre_value, self.__dfl.tag):
             self.__dfl.del_values(pre_value)
+            ...
         self.__dfl.data[self.__tag][index] = value
         return
 
@@ -216,12 +221,14 @@ def create_dfl_recall(
     # initialize dfl
     if dfl is None:
         dfl = {"tag_format": tag_format}
+        ...
 
     # initialize tag_log
     if tag_log is None:
         tag_log = [
             create_tag_function(tag_format, dimension, 0)
         ]
+        ...
 
     # create dfl
     dfl_line: list = []
@@ -247,6 +254,7 @@ def create_dfl_recall(
                 (data, tag)
             )
             data = tag
+            ...
 
         dfl_line.append(data)
         continue
@@ -328,6 +336,7 @@ def validate_tag(
         tag_key = create_tag(
             tag_format, "", ""
         )
+        ...
     return (
             type(value) is str and
             remove_number(value)[-len(tag_key):] == tag_key
@@ -348,6 +357,7 @@ def read_dfl_recall(dfl: dict, self_tag: str, tag_key: str) -> list:
 
         if validate_tag(value, None, tag_key):
             value = read_dfl_recall(dfl, value, tag_key)
+            ...
 
         return_list.append(value)
 
@@ -368,6 +378,7 @@ def read_dfl(
     """
     if type(dfl) is DFL:
         dfl = dfl.data
+        ...
 
     tag_format = dfl["tag_format"]
     self_tag = create_tag_function(
