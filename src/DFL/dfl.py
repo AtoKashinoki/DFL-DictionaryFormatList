@@ -135,7 +135,7 @@ class DFL:
             value = DFLValues(value, self)
         return value
 
-    def __setitem__(self, index, value) -> None:
+    def __setitem__(self, index: int, value) -> None:
         """
             Set value in self.
         :param index: position to set.
@@ -178,7 +178,7 @@ class DFLValues(list):
         super().__init__(dfl.data[tag])
         return
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int):
         value = list.__getitem__(self, index)
         if validate_tag(value, self.__dfl.tag):
             value = DFLValues(value, self.__dfl)

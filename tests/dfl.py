@@ -38,4 +38,4 @@ if __name__ == '__main__':
     dfl[0] = "ts"
     dfl.data["#0#0#"] = "bug"
     print(dfl, dfl.data)
-    print(dfl.list)
+    print(read_dfl(dfl))
