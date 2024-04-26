@@ -22,7 +22,6 @@ This module provides the following features.
 - [x] \_\_init__.py
 - [x] DFL.py
   - [x] DFL class
-- [x] types.py
 - [ ] encoder.py
   - [ ] encode function
 - [ ] decoder.py
