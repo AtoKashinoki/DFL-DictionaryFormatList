@@ -7,6 +7,7 @@ This file contain management program of file.
 
 # import DFL class
 from DFL.dfl import DFL
+from DFL.dfl import encode_dfl
 
 # import json
 import json
@@ -16,26 +17,28 @@ import json
 
 
 def write_dfls_in_file(
-        *dfls: dict | DFL,
+        *datas: dict | DFL | list,
         path: str = "./None.dfl",
         encoding: str = "UTF-8",
 ) -> None:
     """
         Write DFL data in file.
-    :param dfls: data to write.
+    :param datas: data to write.
     :param path: file position to write.
     :param encoding: text code.
     """
-    dfls = list(dfls)
+    datas = list(datas)
 
-    for i, dfl in enumerate(dfls):
+    for i, dfl in enumerate(datas):
         if type(dfl) is DFL:
-            dfls[i] = dfl.data
+            datas[i] = dfl.data
             ...
+        elif type(dfl) is list:
+            dfl[i] = encode_dfl(dfl)
         continue
 
     with open(file=path, mode="w", encoding=encoding) as file:
-        json.dump(dfls, file, indent=4)
+        json.dump(datas, file, indent=4)
         ...
 
     print(f" Success write dfl data in '{path}'")
