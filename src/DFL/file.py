@@ -52,7 +52,7 @@ def write_dfls_in_file(
 def read_dfls_in_file(
         path: str,
         encoding: str = "UTF-8",
-) -> tuple[DFL, ...]:
+) -> tuple[DFL, ...] | DFL:
     """
         Read DFL data in file.
     :param path: file position to read.
@@ -61,8 +61,13 @@ def read_dfls_in_file(
     """
 
     with open(file=path, mode="r", encoding=encoding) as file:
-        dfl_dicts: list[dict | DFL, ...] = json.load(file)
+        dfl_dicts: list[dict | DFL, ...] | dict | DFL = json.load(file)
         ...
+
+    if not type(dfl_dicts) is list:
+        dfl = DFL()
+        dfl.data = dfl_dicts
+        return dfl
 
     dfls: list[DFL] = []
     for dfl_dict in dfl_dicts:
