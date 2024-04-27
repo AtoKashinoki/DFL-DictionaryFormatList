@@ -75,7 +75,7 @@ class DFL:
 
     def __init__(
             self,
-            data: list = (),
+            data: list | dict = (),
             tag_format: str = "#{dimension}#{index}#",
             create_tag_function=create_tag,
     ):
@@ -84,11 +84,21 @@ class DFL:
         :param data: List data to manage.
         :param tag_format: DFL tag format.
         """
-        self.__data = self.create_dfl(
-            data,
-            tag_format,
-            create_tag_function=create_tag_function
-        )
+        if type(data) is dict and "tag_format" in data.keys():
+            self.__data = data
+            ...
+        elif type(data) is list:
+            self.__data = self.create_dfl(
+                data,
+                tag_format,
+                create_tag_function=create_tag_function
+            )
+            ...
+        else:
+            raise TypeError(
+                f"TypeError: Failed to convert data to DFL format -> "
+                f"{data}({type(data)})"
+            )
         self.__create_tag = create_tag_function
         return
 
@@ -99,12 +109,6 @@ class DFL:
     def data(self) -> dict:
         """ Return DFL format dictionary data """
         return copy.copy(self.__data)
-
-    @data.setter
-    def data(self, dfl_dict: dict) -> None:
-        """ Set DFL format dictionary data """
-        self.__data = dfl_dict
-        return
 
     @property
     def tag(self) -> str:

@@ -65,15 +65,11 @@ def read_dfls_in_file(
         ...
 
     if not type(dfl_dicts) is list:
-        dfl = DFL()
-        dfl.data = dfl_dicts
-        return dfl
+        return DFL(dfl_dicts)
 
     dfls: list[DFL] = []
     for dfl_dict in dfl_dicts:
-        dfl = DFL()
-        dfl.data = dfl_dict
-        dfls.append(dfl)
+        dfls.append(DFL(dfl_dict))
         continue
 
     return tuple(dfls)
