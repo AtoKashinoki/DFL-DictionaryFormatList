@@ -1,5 +1,7 @@
 
 
+from . import file
+
 def create_tag(
         tag_format: str,
         dimension: int | str,
@@ -57,16 +59,3 @@ def decode_dfl(
         dfl: dict | DFL,
         create_tag_function=create_tag,
 ) -> list: ...
-
-
-def write_dfls_in_file(
-        *dfls: dict | DFL,
-        path: str = "./None.dfl",
-        encoding: str = "UTF-8",
-) -> None: ...
-
-
-def read_dfls_in_file(
-        path: str,
-        encoding: str = "UTF-8",
-) -> tuple[DFL, ...]: ...

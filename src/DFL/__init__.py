@@ -51,17 +51,10 @@ except ImportError as message:
 
 
 try:
-    from DFL.file import write_dfls_in_file
+    from DFL import file
     ...
 except ImportError as message:
-    write_dfls_in_file = ImportError(message)
-    ...
-
-try:
-    from DFL.file import read_dfls_in_file
-    ...
-except ImportError as message:
-    read_dfls_in_file = ImportError(message)
+    file = ImportError(message)
     ...
 
 
