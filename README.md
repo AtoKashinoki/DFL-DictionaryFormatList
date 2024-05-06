@@ -1,30 +1,50 @@
 # DFL-DictionaryFormatList
-This is a module that introduces list type using dictionary format.
+This module introduces a new data type 'DictionaryFormatList'.
 
 
 ## Overview
-By using a dictionary type, 
-long, complex, and difficult to read List type data 
-is made one-dimensional and simplified.
+By using the DFL type, you can manage multi-dimensional List types into one-dimensional type.
 
-This module provides the following features.
-1. DFL class
-2. encode_dfl function
-3. decode_dfl function
-4. write_dfl_in _file function
-5. read_dfl_in_file function
+Specifically, we will introduce the following functions.
+
+#### DFL class
+DFL (DictionaryFormatList) is a one-dimensional dict type, but data can be extracted in the same way as a normal List type.
+
+#### encode_dfl function
+Converts list type data to DFL format data and returns it as DFL format dictionary type data.
+
+#### decode_dfl function
+Converts DFL format Dictionary type data and DFL type to List type.
+
+#### write_dfl_in _file function
+Describe the List type, DFL type, and DFL format Dictionary type in the File as Text.
+
+#### read_dfl_in_file function
+Reads a Text file written in DFL format, gets and returns the DFL type.
+
+## Using
+
+#### DFL class
+- Initialize -> DFL(data, tag_format, create_tag_function)
+  1. data: 
 
 
-## Develop
+#### encode_dfl function
 
-### Schedule
-1. DFL class
-2. write and read dfl function
+#### decode_dfl function
 
-### Developed
+#### write_dfl_in _file function
+
+#### read_dfl_in_file function
+
+
+## Developed
 - [x] \_\_init__.py
 - [x] DFL.py
   - [x] DFL class
+  - [x] encode_dfl function
+  - [x] decode_dfl function
 - [x] file.py
   - [x] write_dfl_in_file function
   - [x] read_dfl_in_file function
+

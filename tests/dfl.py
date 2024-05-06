@@ -37,5 +37,5 @@ if __name__ == '__main__':
     dfl = DFL.DFL(data, create_tag_function=create_tag)
     dfl[0] = "ts"
     dfl.data["#0#0#test"] = "bug"
-    print(dfl, dfl.data)
+    print(dfl, dfl.data[0:10:2])
     print(decode_dfl(dfl, create_tag_function=create_tag))
