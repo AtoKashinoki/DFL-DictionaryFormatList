@@ -9,8 +9,9 @@ This file contain management program of file.
 from DFL.dfl import DFL
 from DFL.dfl import encode_dfl
 
-# import json
+# import json and copy
 import json
+import copy
 
 
 """ Write DFL data in file"""
@@ -27,6 +28,7 @@ def write_dfls_in_file(
     :param path: file position to write.
     :param encoding: text code.
     """
+    datas = copy.deepcopy(datas)
     datas = list(datas)
 
     for i, dfl in enumerate(datas):
