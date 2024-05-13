@@ -180,6 +180,12 @@ class DFL:
             ...
 
         return self.data == other
+    
+    def __iter__(self):
+        """ Return iterator of list """
+        return iter(self.list)
+
+    ...
 
 
 class DFLValues(list):
