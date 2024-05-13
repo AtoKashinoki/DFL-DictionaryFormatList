@@ -60,7 +60,7 @@ Reads a Text file written in DFL format, gets and returns the DFL type.
 #### encode_dfl function
  -> encode_dfl(data: list, tag_format="#{dimension}#{index}#", create_tag_function=create_tag)
  
-Encode DFL format dictionary data format list.
+Encode DFL format dictionary data from list.
 
 #### decode_dfl function
  -> decode_dfl(dfl: dit | DFL, create_tag_function=create_tag)
