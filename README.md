@@ -25,17 +25,57 @@ Reads a Text file written in DFL format, gets and returns the DFL type.
 ## Using
 
 #### DFL class
-- Initialize -> DFL(data, tag_format, create_tag_function)
-  1. data: 
+- class method
+  1. create_dfl: Create DFL format data from list.
+
+- instance
+  - Initialize 
+  -> DFL(data, tag_forma="#{dimension}#{index}", create_tag_function=create_tag)
+
+  - property
+    1. data: 
+    Return DFL format dictionary data.
+    2. tag : 
+    Return DFL data tag.
+    3. first_tag: 
+    Return DFL data first tag.
+    4. list: 
+    Create and Return list format data from self DFL.
+  
+  - method
+    1. get_list(self): 
+    Create and Return list format data from self DFL.
+    2. del_values(self, key: str): 
+    Delete values.
+    3. \_\_getitem__(self, index: int): 
+    Get values from self.
+    4. \_\_setitem__(self, index: int, value): 
+    Set values in self.
+    5. \_\_eq__(self, other): 
+    Validate self and other.
+    6. \_\_iter__(self): 
+    Return iterator of list.
 
 
 #### encode_dfl function
+ -> encode_dfl(data: list, tag_format="#{dimension}#{index}#", create_tag_function=create_tag)
+ 
+Encode DFL format dictionary data format list.
 
 #### decode_dfl function
+ -> decode_dfl(dfl: dit | DFL, create_tag_function=create_tag)
 
-#### write_dfl_in _file function
+Create list format DFL format dictionary.
 
-#### read_dfl_in_file function
+#### write
+ -> write(*datas: dict | DFL | list, path: str, encoding: str = "UTF-8")
+
+Write DFL data in file.
+
+#### read
+ -> read(path: str, encoding: str = "UTF-8")
+
+Read DFL data in file.
 
 
 ## Developed

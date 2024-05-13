@@ -133,7 +133,7 @@ class DFL:
 
     def __getitem__(self, index: int) -> list:
         """
-            Get values in self.
+            Get values from self.
         :param index: data position.
         :return: list
         """
@@ -180,7 +180,7 @@ class DFL:
             ...
 
         return self.data == other
-    
+
     def __iter__(self):
         """ Return iterator of list """
         return iter(self.list)

@@ -17,7 +17,7 @@ import copy
 """ Write DFL data in file"""
 
 
-def write_dfls_in_file(
+def write(
         *datas: dict | DFL | list,
         path: str = "./None.dfl",
         encoding: str = "UTF-8",
@@ -51,7 +51,7 @@ def write_dfls_in_file(
 """ Read DFL data in file """
 
 
-def read_dfls_in_file(
+def read(
         path: str,
         encoding: str = "UTF-8",
 ) -> tuple[DFL, ...] | DFL:
